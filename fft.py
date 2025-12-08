@@ -4,7 +4,7 @@ import os
 import cmath
 import math
 
-url_path = "imagenes/img.png"
+url_path = "imagenes/img_chica.png"
 
 sizeBytes = os.path.getsize(url_path)
 
@@ -145,10 +145,10 @@ coef_no_nulos = np.count_nonzero(fft_comprimida)
 
 # Cada coeficiente complejo = 2 floats de 64 bits = 16 bytes
 # El tamaño estimado es antes de hacer la IFFT
-tamaño_estimado = coef_no_nulos * 16
+tamaño_estimado = 10 + (coef_no_nulos * 12)
 print(f"Tamaño estimado de la imagen comprimida: {tamaño_estimado / 1024:.2f} KB")
 
 # Guardar la imagen comprimida en un archivo
-ruta_imagen_comprimida = 'imagenes/img_fft.png'
+ruta_imagen_comprimida = 'imagenes/fft_img_chica.png'
 Image.fromarray(imagen_reconstruida).save(ruta_imagen_comprimida)
 print(f"\nImagen comprimida guardada en: {ruta_imagen_comprimida}")

@@ -4,7 +4,7 @@ import os
 import cmath
 import math
 
-url_path = "imagenes/img.bmp"
+url_path = "imagenes/img_chica.png"
 
 sizeBytes = os.path.getsize(url_path)
 
@@ -118,5 +118,5 @@ coef_no_nulos = np.count_nonzero(dft_comprimida)
 tamaño_estimado = coef_no_nulos * 16
 print(f"Tamaño estimado de la imagen comprimida: {tamaño_estimado / 1024:.2f} KB")
 
-Image.fromarray(imagen_reconstruida).save('imagenes/img_dft.bmp')
-print(f"\nResultado guardado en: imagenes/img_dft.bmp")
+Image.fromarray(imagen_reconstruida).save('imagenes/dft_img_chica.png')
+print(f"\nResultado guardado en: imagenes/dft_img_chica.png")
