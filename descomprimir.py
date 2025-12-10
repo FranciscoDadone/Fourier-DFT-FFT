@@ -92,7 +92,7 @@ with open(archivo_comprimido, 'rb') as f:
     # Reconstruir la matriz FFT
     fft_reconstruida = np.zeros((alto_fft, ancho_fft), dtype=complex)
     
-    # Leer los coeficientes no nulos (formato compacto)
+    # Leer los coeficientes no nulos
     for _ in range(num_coeficientes):
         fila = struct.unpack('H', f.read(2))[0]
         columna = struct.unpack('H', f.read(2))[0]

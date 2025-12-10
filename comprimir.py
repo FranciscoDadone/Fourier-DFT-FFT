@@ -7,8 +7,8 @@ import struct
 
 url_path = "imagenes/img.png"
 
-sizeBytes = os.path.getsize(url_path)
-print(f"Tamaño de la imagen original: {sizeBytes / 1024:.2f} KB")
+tamaño = os.path.getsize(url_path)
+print(f"Tamaño de la imagen original: {tamaño / 1024:.2f} KB")
 
 img = Image.open(url_path)
 
@@ -63,7 +63,7 @@ def fft2d(image):
     return fft_cols
 
 # Parámetro de compresión (porcentaje de coeficientes a conservar)
-porcentaje_conservar = 1  # Ajusta este valor para más o menos compresión
+porcentaje_conservar = 1 
 
 print(f"\n=== COMPRIMIENDO IMAGEN ===")
 print(f"Dimensiones originales: {image.shape}")
@@ -108,23 +108,20 @@ with open(archivo_comprimido, 'wb') as f:
     # Guardar número de coeficientes no nulos
     f.write(struct.pack('I', len(valores_no_nulos)))  # 4 bytes
     
-    # Guardar los índices y valores de los coeficientes no nulos
-    # H (unsigned short, 2 bytes) para índices
-    # y f (float, 4 bytes) para valores
     for i in range(len(valores_no_nulos)):
         fila = indices_no_nulos[0][i]
         columna = indices_no_nulos[1][i]
         valor = valores_no_nulos[i]
         
-        # Guardar índices (2 bytes cada uno en lugar de 4)
+        # Guardar índices (2 bytes cada uno)
         f.write(struct.pack('H', fila))
         f.write(struct.pack('H', columna))
         
-        # Guardar parte real e imaginaria (4 bytes cada uno en lugar de 8)
+        # Guardar parte real e imaginaria (4 bytes cada uno)
         f.write(struct.pack('f', valor.real))
         f.write(struct.pack('f', valor.imag))
 
 tamaño_comprimido = os.path.getsize(archivo_comprimido)
 print(f"\nTamaño del archivo comprimido: {tamaño_comprimido / 1024:.2f} KB")
-print(f"Reducción de tamaño: {100 * (1 - tamaño_comprimido / sizeBytes):.2f}%")
+print(f"Reducción de tamaño: {100 * (1 - tamaño_comprimido / tamaño):.2f}%")
 print(f"\nArchivo guardado en: {archivo_comprimido}")

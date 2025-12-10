@@ -115,7 +115,10 @@ porcentaje_conservar = 1
 
 # Mostrar imagen comprimida
 
+print("\n=== COMPRIMIENDO IMAGEN ===")
+print("Haciendo la FFT 2D de la imagen...")
 fft_image = fft2d(image)
+# fft_image = np.abs(fft_image).astype(complex) # demo fase 0
 print(image.shape[0] * image.shape[1], "pixeles en total")
 print(len(fft_image.flatten()), "coeficientes en total")
 
@@ -124,6 +127,7 @@ magnitudes = np.abs(fft_image)
 
 # Determinar umbral para conservar solo el porcentaje deseado de coeficientes
 umbral = np.percentile(magnitudes, 100 - porcentaje_conservar)
+print(f"Umbral para conservar el {porcentaje_conservar}% de coeficientes: {umbral}")
 
 # Matriz de 0s y 1s para conservar solo los coeficientes más importantes
 mascara = magnitudes >= umbral
@@ -135,7 +139,9 @@ coef_conservados = np.sum(mascara)
 coef_totales = mascara.size
 print(f"Coeficientes conservados: {coef_conservados} de {coef_totales} ({100*coef_conservados/coef_totales:.2f}%)")
 
+
 # Aplicar FFT inversa
+print("Haciendo la IFFT 2D de la imagen comprimida...")
 imagen_reconstruida = ifft2d(fft_comprimida, image.shape)
 
 # Asegurar que los valores estén en el rango correcto (8 bits)
@@ -152,3 +158,22 @@ print(f"Tamaño estimado de la imagen comprimida: {tamaño_estimado / 1024:.2f} 
 ruta_imagen_comprimida = 'imagenes/fft_img_chica.png'
 Image.fromarray(imagen_reconstruida).save(ruta_imagen_comprimida)
 print(f"\nImagen comprimida guardada en: {ruta_imagen_comprimida}")
+
+# Guardar imagen de la máscara
+# mascara_img = (mascara * 255).astype(np.uint8)
+# ruta_mascara = 'imagenes/fft_mascara.png'
+# Image.fromarray(mascara_img).save(ruta_mascara)
+# print(f"Imagen de la máscara guardada en: {ruta_mascara}")
+
+
+
+# fft_image_img = (fft_image * 255).astype(np.uint8)
+# ruta_fft_image = 'imagenes/fft_image.png'
+# Image.fromarray(fft_image_img).save(ruta_fft_image)
+# print(f"Imagen de la FFT guardada en: {ruta_fft_image}")
+
+
+# fft_image_comprimida_img = (fft_comprimida * 255).astype(np.uint8)
+# ruta_fft_image_comprimida = 'imagenes/fft_image_comprimida.png'
+# Image.fromarray(fft_image_comprimida_img).save(ruta_fft_image_comprimida)
+# print(f"Imagen de la FFT comprimida guardada en: {ruta_fft_image_comprimida}")

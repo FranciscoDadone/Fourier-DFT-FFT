@@ -6,9 +6,9 @@ import math
 
 url_path = "imagenes/img_chica.png"
 
-sizeBytes = os.path.getsize(url_path)
+tamaño = os.path.getsize(url_path)
 
-print(f"Tamaño de la imagen original: {sizeBytes / 1024:.2f} KB")
+print(f"Tamaño de la imagen original: {tamaño / 1024:.2f} KB")
 img = Image.open(url_path)
 
 image = np.array(img.convert('L'))  # convertimos la imagen a escala de grises y la almacenamos en un array
