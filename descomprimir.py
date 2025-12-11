@@ -113,6 +113,4 @@ imagen_reconstruida = np.clip(imagen_reconstruida, 0, 255).astype(np.uint8)
 ruta_imagen_descomprimida = 'imagenes/img_descomprimida.png'
 Image.fromarray(imagen_reconstruida).save(ruta_imagen_descomprimida)
 
-tamaño_descomprimida = os.path.getsize(ruta_imagen_descomprimida)
 print(f"\nImagen descomprimida guardada en: {ruta_imagen_descomprimida}")
-print(f"Tamaño de la imagen descomprimida: {tamaño_descomprimida / 1024:.2f} KB")

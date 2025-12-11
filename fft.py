@@ -69,9 +69,9 @@ def fft2d(image):
     matriz[:M, :N] = image # pongo la imagen en la nueva matriz potencia de 2    
     
     filas_fft = []
-    for row in matriz:
-        transformed_row = fft(row)   # aplico la FFT a la fila
-        filas_fft.append(transformed_row)
+    for fila in matriz:
+        transformada = fft(fila)   
+        filas_fft.append(transformada)
 
     filas_fft = np.array(filas_fft)
 
@@ -101,8 +101,8 @@ def ifft2d(imagen_fft, dimensiones_originales):
     
     # IFFT en las filas
     filas_ifft = []
-    for row in columnas_ifft:
-        transformada_inversa = ifft(row)
+    for fila in columnas_ifft:
+        transformada_inversa = ifft(fila)
         filas_ifft.append(transformada_inversa)
     
     filas_ifft = np.array(filas_ifft)
@@ -127,7 +127,6 @@ magnitudes = np.abs(fft_image)
 
 # Determinar umbral para conservar solo el porcentaje deseado de coeficientes
 umbral = np.percentile(magnitudes, 100 - porcentaje_conservar)
-print(f"Umbral para conservar el {porcentaje_conservar}% de coeficientes: {umbral}")
 
 # Matriz de 0s y 1s para conservar solo los coeficientes más importantes
 mascara = magnitudes >= umbral
